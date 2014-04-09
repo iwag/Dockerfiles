@@ -18,8 +18,8 @@ RUN sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config && echo 'root:uaaa' 
 # RUN yum install -y rsync && curl -L https://www.opscode.com/chef/install.sh | bash
 
 # install ruby
-# RUN yum -y install gcc glibc-devel openssl-devel libyaml-devel libxslt-devel && yum clean all
-# RUN wget -q http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz -O /tmp/ruby.tar.gz && cd /tmp/ && tar -xf ruby.tar.gz && cd ruby-2.1.1 && ./configure && make &&  make install && rm -rf /tmp/ruby* && yum -y remove gcc cpp && cd /tmp && gem install bundler --no-ri
+RUN yum -y install gcc glibc-devel openssl-devel libyaml-devel libxslt-devel && yum clean all
+RUN wget -q http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz -O /tmp/ruby.tar.gz && cd /tmp/ && tar -xf ruby.tar.gz && cd ruby-2.1.1 && ./configure && make &&  make install && rm -rf /tmp/ruby* && yum -y remove gcc cpp && cd /tmp && gem install bundler --no-ri
 
 # useradd
 RUN useradd okok && echo okok:okok | chpasswd && echo 'okok ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
