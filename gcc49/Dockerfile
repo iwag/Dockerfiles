@@ -1,4 +1,4 @@
-FROM iwag/ruby-base
+FROM iwag/ruby_base
 MAINTAINER iwag
 
 RUN yum install -y glibc-devel gcc-c++ autoconf

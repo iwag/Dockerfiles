@@ -1,3 +1,4 @@
+# name : iwag/ruby-misc
 FROM iwag/cent64_base
 MAINTAINER iwag
 
@@ -11,39 +12,26 @@ RUN yum install -y python-setuptools && \
     pip install "pip>=1.4,<1.5" --upgrade && \
     pip install supervisor
 
-# install sshd
-RUN yum install openssh-server openssh-clients && \
-    service sshd start && service sshd stop && \
-    echo "NETWORKING=yes" > /etc/sysconfig/network && \
-    sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
-
 # install chef
 # RUN yum install -y rsync && curl -L https://www.opscode.com/chef/install.sh | bash
 
 # install ruby
+ENV RUBY_VER 1.9
+ENV RUBY_VER2 1.9.3
+ENV RUBY_PATCH p545
 RUN yum -y install gcc glibc-devel openssl-devel libyaml-devel libxslt-devel && yum clean all
-RUN wget -q http://cache.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p545.tar.gz -O /tmp/ruby.tar.gz && \
+RUN wget -q "http://cache.ruby-lang.org/pub/ruby/${RUBY_VER}/ruby-${RUBY_VER2}-${RUBY_PATCH}.tar.gz" -O /tmp/ruby.tar.gz  && \
     cd /tmp/ && \
     tar -xf ruby.tar.gz && \
-    cd ruby-1.9.3-p545 && \
-    ./configure && make &&  make install && \
+    cd "ruby-${RUBY_VER2}-${RUBY_PATCH}" && \
+    ./configure --prefix=/usr/local && make &&  make install && \
     cd /tmp && rm -rf /tmp/ruby* && \ 
     gem install bundler --no-ri # && yum -y remove gcc cpp kernel-headers && \
 
 
-# useradd
-# RUN useradd docker && echo docker:docker | chpasswd && echo 'docker ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-RUN mkdir -p /home/docker/.ssh && chown docker.docker /home/docker/.ssh && chmod 700 /home/docker/.ssh
-ADD id_rsa.tar /home/docker/.ssh/id_rsa.tar
-# RUN chown docker.docker /home/docker/.ssh/authorized_keys && chmod 600 /home/docker/.ssh/authorized_keys
+# ONBUILD ADD config.sh /home/docker/config.sh 
+# ONBUILD ADD deploy.sh /home/docker/deploy.sh 
+# ONBUILD RUN chown docker.docker /home/docker/*.sh
 
-#ADD config.sh /home/docker/config.sh 
-#ADD deploy.sh /home/docker/deploy.sh 
-#RUN chown docker.docker /home/docker/*.sh
-
-#USER docker
-#WORKDIR /home/docker
-#CMD ["/home/docker/config.sh"]
-
-# EXPOSE 22
-# CMD service sshd start
+EXPOSE 22
+CMD /usr/bin/sshd -D
