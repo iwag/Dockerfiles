@@ -17,7 +17,7 @@ RUN yum install openssh-server openssh-clients && \
     sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 
 # setting user
-RUN echo 'root:docker' | chpasswd && useradd $USER && echo "$USER:$USER" | chpasswd && echo '$USER ALL=(ALL) ALL' >> /etc/sudoers && echo '$USER ALL=NOPASSWD: ALL' >> /etc/sudoers
+RUN echo 'root:docker' | chpasswd && useradd $USER && echo "$USER:$USER" | chpasswd && echo "$USER ALL=(ALL) ALL" >> /etc/sudoers && echo "$USER ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 RUN mkdir /home/$USER/.ssh
 ADD id_rsa.tar /home/$USER/.ssh/ 
