@@ -1,5 +1,5 @@
 # name : iwag/ruby-misc
-FROM iwag/cent64_base
+FROM iwag/cent64-base
 MAINTAINER iwag
 
 # install misc.
@@ -34,4 +34,4 @@ RUN wget -q "http://cache.ruby-lang.org/pub/ruby/${RUBY_VER}/ruby-${RUBY_VER2}-$
 # ONBUILD RUN chown docker.docker /home/docker/*.sh
 
 EXPOSE 22
-CMD /usr/bin/sshd -D
+CMD /usr/sbin/sshd -D
