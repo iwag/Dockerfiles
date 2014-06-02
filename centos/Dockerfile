@@ -2,7 +2,6 @@
 FROM centos:6.4
 
 ENV JAVA_VERSION java-1.7.0
-ENV USER docker
 
 # Install 
 RUN yum update -y && yum clean all && rm -rf /var/cache/yum/*
@@ -16,7 +15,13 @@ RUN yum install openssh-server openssh-clients && \
     echo "NETWORKING=yes" > /etc/sysconfig/network && \
     sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 
+# setting time
+RUN echo 'ZONE="Asia/Tokyo"' > /etc/sysconfig/clock && \
+    rm -f /etc/localtime && \
+    ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime 
+
 # setting user
+ENV USER docker
 RUN echo 'root:docker' | chpasswd && useradd $USER && echo "$USER:$USER" | chpasswd && echo "$USER ALL=(ALL) ALL" >> /etc/sudoers && echo "$USER ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 RUN mkdir /home/$USER/.ssh
