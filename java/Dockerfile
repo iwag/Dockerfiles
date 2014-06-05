@@ -1,6 +1,7 @@
 # name cent64-java-maven
 FROM iwag/ruby-misc
 
+# install java
 RUN yum install -y java-1.7.0-openjdk 
 
 # install maven
