@@ -1,5 +1,5 @@
 # name cent64-mysql55
-FROM iwag/cent64_base
+FROM iwag/cent64-base
 
 ENV USER docker
 
