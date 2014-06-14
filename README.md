@@ -3,5 +3,4 @@ Dockerfiles
 
 Dockerfile okiba
 
-* vi Conffile.rb # config Conffile.rb
-* rake build
+* docker build -t iwag/centos-all .

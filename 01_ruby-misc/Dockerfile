@@ -2,10 +2,6 @@
 FROM iwag/cent64-base
 MAINTAINER iwag
 
-# install misc.
-# RUN yum -y update && yum clean all
-# RUN yum -y install zsh vim vim-enhanced unzip passwd sudo openssh-server git && yum clean all 
-
 # install supervisord
 RUN yum install -y python-setuptools && \
     easy_install pip && \
@@ -28,10 +24,6 @@ RUN wget -q "http://cache.ruby-lang.org/pub/ruby/${RUBY_VER}/ruby-${RUBY_VER2}-$
     cd /tmp && rm -rf /tmp/ruby* && \ 
     gem install bundler --no-ri # && yum -y remove gcc cpp kernel-headers && \
 
-
-# ONBUILD ADD config.sh /home/docker/config.sh 
-# ONBUILD ADD deploy.sh /home/docker/deploy.sh 
-# ONBUILD RUN chown docker.docker /home/docker/*.sh
 
 EXPOSE 22
 CMD /usr/sbin/sshd -D

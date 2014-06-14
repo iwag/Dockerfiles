@@ -8,7 +8,7 @@ RUN yum update -y && yum clean all && rm -rf /var/cache/yum/*
 RUN yum install -y wget curl zsh sudo git openssh-server passwd screen vim && yum clean all && rm -rf /var/cache/yum/*
 
 # install sshd
-RUN yum install openssh-server openssh-clients && \
+RUN yum install -y openssh-server openssh-clients && \
     service sshd start && service sshd stop && \
     echo "NETWORKING=yes" > /etc/sysconfig/network && \
     sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
