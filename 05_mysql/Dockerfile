@@ -5,13 +5,13 @@ ENV USER docker
 
 # install mysql
 ENV MYSQL_VER 5.5.38-1
-RUN cd /tmp && wget -q "http://ftp.jaist.ac.jp/pub/mysql/Downloads/MySQL-5.5/${MYSQL_VER}.linux2.6.x86_64.rpm-bundle.tar" -O mysql.tar &&  tar -xf mysql.tar 
-RUN yum localinstall -y MySQL-shared-compat*.rpm && yum localinstall -y MySQL-server*.rpm && yum localinstall -y MySQL-client*.rpm && yum localinstall -y MySQL-devel*.rpm && yum localinstall -y MySQL-shared-5.5*.rpm && rm *.tar 
+RUN cd /tmp && wget -q "http://ftp.jaist.ac.jp/pub/mysql/Downloads/MySQL-5.5/MySQL-${MYSQL_VER}.linux2.6.x86_64.rpm-bundle.tar" -O mysql.tar &&  tar -xf mysql.tar 
+RUN cd /tmp && yum localinstall -y MySQL-shared-compat*.rpm && yum localinstall -y MySQL-server*.rpm && yum localinstall -y MySQL-client*.rpm && yum localinstall -y MySQL-devel*.rpm && yum localinstall -y MySQL-shared-5.5*.rpm && rm *.tar 
 # RUN yum install -y mysql-server
 
 ADD config.sh /home/$USER/config_mysql.sh
-RUN chown -R $USER.$USER /home/$USER/* && chown $USER.$USER /home/$USER && service mysqld start && sh /home/$USER/config_mysql.sh
+RUN chown -R $USER.$USER /home/$USER/* && chown $USER.$USER /home/$USER && service mysql start && sh /home/$USER/config_mysql.sh
 
 EXPOSE 22
-CMD service mysqld start 
+CMD service mysql start 
 CMD /usr/sbin/sshd -D
