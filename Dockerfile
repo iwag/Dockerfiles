@@ -1,10 +1,10 @@
 # name iwag/all
 
-#FROM centos:6.4
-FROM iwag/ruby-misc
+FROM centos:6.4
+#FROM iwag/ruby-misc
 MAINTAINER iwag
 
-RUN yum update
+RUN yum update -y
 
 RUN mkdir /docker
 ADD . /docker

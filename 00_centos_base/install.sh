@@ -1,7 +1,7 @@
 
 # update and install iroiro
 yum update -y && yum clean all && rm -rf /var/cache/yum/*
-RUN yum install -y wget curl zsh sudo git openssh-server passwd screen vim && yum clean all && rm -rf /var/cache/yum/*
+yum install -y wget curl zsh sudo git openssh-server passwd screen vim && yum clean all && rm -rf /var/cache/yum/*
 
 # install sshd
 yum install -y openssh-server openssh-clients
