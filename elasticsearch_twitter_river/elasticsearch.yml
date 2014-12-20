@@ -1,0 +1,13 @@
+path:
+   data: /data/data
+   logs: /data/log
+   plugins: /elasticsearch/data/plugins
+   work: /data/work
+
+river.twitter.oauth:
+   consumer_key: ""
+   consumer_secret: ""
+   access_token: "-"
+   access_token_secret: ""
+
+http.cors.enabled: true
