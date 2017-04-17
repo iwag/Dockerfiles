@@ -1,5 +1,5 @@
 # name cent64-base
-FROM centos:6.4
+FROM centos:centos6
 
 ENV USER docker
 
@@ -22,9 +22,10 @@ RUN echo 'ZONE="Asia/Tokyo"' > /etc/sysconfig/clock && \
 ENV USER docker
 RUN echo 'root:docker' | chpasswd && useradd $USER && echo "$USER:$USER" | chpasswd && echo "$USER ALL=(ALL) ALL" >> /etc/sudoers && echo "$USER ALL=NOPASSWD: ALL" >> /etc/sudoers
 
-RUN mkdir /home/$USER/.ssh
-ADD id_rsa.tar /home/$USER/.ssh/ 
-RUN chown $USER.$USER /home/$USER/.ssh/* && chmod 600 /home/$USER/.ssh/id_rsa && chown $USER.$USER /home/$USER/.ssh
+#RUN mkdir /home/$USER/.ssh
+#ADD id_rsa.pub /home/$USER/.ssh/
+#ADD id_rsa /home/$USER/.ssh/
+#RUN chown $USER.$USER /home/$USER/.ssh/* && chmod 600 /home/$USER/.ssh/id_rsa && chown $USER.$USER /home/$USER/.ssh
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
