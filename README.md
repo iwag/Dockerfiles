@@ -1,9 +1,5 @@
-Dockerfiles
+My very best Dockerfiles
 ===========
-
-Dockerfile okiba
-
-* docker build -t iwag/centos-all .
 
 How to set up docker environment in Mac
 =====
@@ -20,6 +16,7 @@ eval $(docker-machine env)
 docker version
 docker run ...
 docker-machine stop default
-VBoxManage modifyvm "default" --natpf1 "tcp-port53306,tcp,,53306,,53306”;
+curl `docker-machine ip`:8080
+OR VBoxManage modifyvm "default" --natpf1 "tcp-port53306,tcp,,53306,,53306”;
 ```
 
